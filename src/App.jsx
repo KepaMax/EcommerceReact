@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import RegisterPage from './auth/RegisterPage'
-import LoginPage from './auth/LoginPage'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faLock, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
+import Login from './login/Login'
+import Register from './register/Register'
+
 
 function App() {
   const [count, setCount] = useState(0)
-
+  library.add(fab, faLock, faEnvelope,faUser)
   return (
     <>
-      <LoginPage></LoginPage>
+      <Register></Register>
     </>
   )
 }
