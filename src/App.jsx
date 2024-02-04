@@ -4,6 +4,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faLock, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
 import Login from './login/Login'
 import Register from './register/Register'
+import Navbar from './common/components/Navbar'
 
 
 function App() {
