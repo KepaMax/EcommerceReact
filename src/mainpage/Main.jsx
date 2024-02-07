@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from '../common/components/Navbar'
-
 import ProductCard from './components/ProductCard';
 
 function MainPage() {

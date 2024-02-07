@@ -5,6 +5,7 @@ import { faLock, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
 import Navbar from './common/components/Navbar'
 import Main from './mainpage/Main'
 import Product from './productpage/Product'
+import Cart from './cartpage/Cart'
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
   library.add(fab, faLock, faEnvelope,faUser)
   return (
     <>
-      <Product></Product>
+      <Cart></Cart>
     </>
   )
 }
