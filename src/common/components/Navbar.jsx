@@ -6,7 +6,7 @@ function Navbar() {
 
   return (
     <nav className="px-4">
-      <div className="hidden lg:flex justify-between">
+      <div className="hidden md:flex justify-between">
         <ul className="flex w-[50%] gap-8">
           <li className="flex flex-col  text-center w-[70px] h-[56px]">
             <button className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">WOMEN</button>
@@ -18,7 +18,7 @@ function Navbar() {
             <button className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">KIDS</button>
           </li>
         </ul>
-        <button>
+        <button className="py-2">
           <img src={Logo} className="mt-[24px] mb-[15px]" alt="my_logo" />
         </button>
         <ul className="flex w-[50%] items-center justify-end gap-8">
@@ -39,7 +39,7 @@ function Navbar() {
           </li>
         </ul>
       </div>
-      <div className="flex flex-col lg:hidden">
+      <div className="flex flex-col md:hidden">
         <div className="flex h-[75px] items-center justify-between">
           <div className="ml-5">
             <button
@@ -51,32 +51,25 @@ function Navbar() {
               ☰
             </button>
           </div>
-          <img
-            src={Logo}
-            className="mt-[24px] mb-[15px] mr-5"
-            alt="my_logo"
-          />
+          <button>
+            <img src={Logo} className="mt-[24px] mb-[15px]" alt="my_logo" />
+          </button>
         </div>
         <div className={`${openNav ? "" : "hidden"}`}>
           <ul className="flex flex-col items-center mb-[25px] gap-8">
-            <li className="flex px-5 flex-col text-center w-full h-[56px]">
-              <p className="text-[#5ECE7B] max-auto font-semibold mb-[30px] mt-[26px]">
-                WOMEN
-              </p>
-              <div className="w-full border border-[#5ECE7B]"></div>
+            <li className="flex px-5  flex-col text-center w-full">
+              <button className="py-3 border-b-2 border-transparent hover:text-green-400 hover:border-green-400">WOMEN</button>
             </li>
-            <li className="flex px-5 flex-col text-center w-full h-[56px]">
-              <p className="text-black mx-auto mb-[30px] mt-[26px]">MEN</p>
-              <div className="invisible w-full border border-[#5ECE7B]"></div>
+            <li className="flex px-5 flex-col text-center w-full">
+              <button className="py-3 border-b-2 border-transparent hover:text-green-400 hover:border-green-400">MEN</button>
             </li>
-            <li className="flex px-5 flex-col text-center w-[70px] h-[56px]">
-              <p className="text-black mx-auto mb-[30px] mt-[26px]">KIDS</p>
-              <div className="invisible w-[70px] border border-[#5ECE7B]"></div>
+            <li className="flex px-5 flex-col text-center w-full">
+              <button className="py-3 border-b-2 border-transparent hover:text-green-400 hover:border-green-400">KIDS</button>
             </li>
           </ul>
           <ul className="flex items-center justify-center gap-16">
             <li className="flex">
-              <select className="rounded py-2 px-4 leading-tight focus:outline-none">
+              <select className="rounded py-3 border-b-2 border-transparent hover:border-green-400 px-4 leading-tight focus:outline-none">
                 <option key="$" value="$">
                   $
                 </option>
@@ -86,11 +79,9 @@ function Navbar() {
               </select>
             </li>
             <li>
-              <img
-                src={CartIcon}
-                className="w-[20px] h-[20px]"
-                alt="cart_icon"
-              />
+              <button className="py-3 px-6 border-b-2 border-transparent hover:text-green-400 hover:border-green-400">
+                <img src={CartIcon} className="w-[20px] h-[20px]" alt="cart_icon" />
+              </button>
             </li>
           </ul>
         </div>
