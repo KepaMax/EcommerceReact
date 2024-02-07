@@ -12,7 +12,7 @@ function App() {
   library.add(fab, faLock, faEnvelope,faUser)
   return (
     <>
-      <Register></Register>
+      <Navbar></Navbar>
     </>
   )
 }
