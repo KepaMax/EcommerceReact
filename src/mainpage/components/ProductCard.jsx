@@ -1,5 +1,5 @@
 import React from 'react'
-import CartWIcon from "../../assets/Cart_white.svg";
+import CartIcon from "../../assets/Cart_white.svg";
 
 function ProductCard() {
     return (
@@ -13,7 +13,7 @@ function ProductCard() {
                 <button className="hidden group-hover:flex justify-center items-center border border-[#5ECE7B] bg-[#5ECE7B] rounded-full w-[50px] h-[50px] absolute right-5 -bottom-[25px]">
                     <img
                         className="w-[24px] h-[24px] mr-1"
-                        src={CartWIcon}
+                        src={CartIcon}
                         alt="cart_white"
                     />
                 </button>

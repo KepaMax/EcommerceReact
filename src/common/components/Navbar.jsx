@@ -23,7 +23,7 @@ function Navbar() {
         </button>
         <ul className="flex w-[50%] items-center justify-end gap-8">
           <li className="flex">
-            <select className="rounded py-6 px-4 border-b-2 border-transparent hover:border-green-400 leading-tight focus:outline-none">
+            <select className="py-6 px-4 border-b-2 border-transparent hover:border-green-400 leading-tight focus:outline-none">
               <option key="$" value="$">
                 $
               </option>

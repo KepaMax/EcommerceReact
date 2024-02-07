@@ -6,9 +6,9 @@ import ProductCard from './components/ProductCard';
 function MainPage() {
     return (
         <>
-            <div className="lg:px-[117px]">
+            <div className="md:px-20 lg:px-28">
                 <Navbar />
-                <div className="px-[25px] ">
+                <div className="px-6 ">
                     <div>
                         <h1 className="text-4xl lg:text-5xl font-light py-14 px-5">
                             Category name
