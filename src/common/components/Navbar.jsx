@@ -1,24 +1,28 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Logo from "../../assets/Logo.svg";
 import CartIcon from "../../assets/Cart.svg";
+import { useNavigate } from "react-router-dom";
+import Context from "../../contexts/GlobalContext";
+
 function Navbar() {
+  const { categories, getCategories, setCurrentCategory } = useContext(Context)
   const [openNav, setOpenNav] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getCategories()
+  }, [])
 
   return (
     <nav className="px-4">
       <div className="hidden md:flex justify-between">
         <ul className="flex w-[50%] gap-8">
-          <li className="flex flex-col  text-center w-[70px] h-[56px]">
-            <button className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">WOMEN</button>
-          </li>
-          <li className="flex flex-col text-center w-[70px] h-[56px]">
-            <button className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">MEN</button>
-          </li>
-          <li className="flex flex-col text-center w-[70px] h-[56px]">
-            <button className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">KIDS</button>
-          </li>
+          {categories.map((c) =>
+          (<li className="flex flex-col  text-center w-[70px] h-[56px]">
+            <button onClick={() => setCurrentCategory(c)} className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">{c}</button>
+          </li>))}
         </ul>
-        <button className="py-2">
+        <button onClick={() => navigate("/main")} className="py-2">
           <img src={Logo} className="mt-[24px] mb-[15px]" alt="my_logo" />
         </button>
         <ul className="flex w-[50%] items-center justify-end gap-8">

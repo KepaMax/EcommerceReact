@@ -8,10 +8,10 @@ import { GlobalContext } from './contexts/GlobalContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <BrowserRouter>
       <GlobalContext>
-        <BrowserRouter>
-          <App></App>
-        </BrowserRouter>
+        <App></App>
       </GlobalContext>
+    </BrowserRouter>
   </React.StrictMode>,
 )
