@@ -26,7 +26,7 @@ function Register() {
         const data = await response.json();
         const token = data.user.token;
         setCookie('accessToken', token, { path: '/' });
-        console.log(cookies.accessToken);
+        navigate("/main")
       }
       else {
         console.log(response.status)

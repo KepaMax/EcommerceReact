@@ -25,7 +25,11 @@ function Navbar() {
             }} className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">{c}</button>
           </li>))}
         </ul>
-        <button onClick={() => navigate("/main")} className="py-2">
+        <button onClick={() => {
+          navigate("/main")
+          filterProducts("All")
+          setCurrentCategory("All")
+        }} className="py-2">
           <img src={Logo} className="mt-[24px] mb-[15px]" alt="my_logo" />
         </button>
         <ul className="flex w-[50%] items-center justify-end gap-8">
@@ -59,13 +63,17 @@ function Navbar() {
             </button>
           </div>
           <button>
-            <img src={Logo} className="mt-[24px] mb-[15px]" alt="my_logo" />
+            <img onClick={() => {
+              navigate("/main")
+              filterProducts("All")
+              setCurrentCategory("All")
+            }} src={Logo} className="mt-[24px] mb-[15px]" alt="my_logo" />
           </button>
         </div>
         <div className={`${openNav ? "" : "hidden"}`}>
           <ul className="flex flex-col items-center mb-[25px] gap-8">
             {categories.map((c) =>
-            (<li className="flex flex-col  text-center w-[70px] h-[56px]">
+            (<li className="flex px-5  flex-col text-center w-full">
               <button onClick={() => {
                 setCurrentCategory(c)
                 filterProducts(c)
