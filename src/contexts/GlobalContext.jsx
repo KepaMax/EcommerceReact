@@ -6,7 +6,7 @@ const Context = createContext();
 export default Context;
 
 export const GlobalContext = ({ children }) => {
-    const {cookies} = useCookieContext();
+    const { cookies } = useCookieContext();
     const [categories, setCategories] = useState([])
     const [currentCategory, setCurrentCategory] = useState("All")
     const [products, setProducts] = useState([])
@@ -58,6 +58,13 @@ export const GlobalContext = ({ children }) => {
         }
     }
 
+    function addProductToOrder(p) {
+        const productExists = orders.find(product => product.id === p.id);
+        if (!productExists) {
+            setOrders(prev => [...prev, p])
+        }
+    }
+
     async function getOrders() {
         try {
             const response = await fetch("http://localhost:5000/api/orders", {
@@ -76,9 +83,24 @@ export const GlobalContext = ({ children }) => {
         }
     }
 
-    useEffect(()=>{
+    const isTokenExpired = (token) => {
+        if (!token) {
+            return true;
+        }
+
+        const [, payloadBase64] = token.split('.');
+
+        const payload = JSON.parse(atob(payloadBase64));
+
+        const expirationTime = payload.exp;
+
+        const currentTime = Math.floor(Date.now() / 1000);
+        return expirationTime < currentTime;
+    };
+
+    useEffect(() => {
         getOrders()
-    },[])
+    }, [])
 
     const contextData = {
         getCategories: getCategories,
@@ -92,7 +114,9 @@ export const GlobalContext = ({ children }) => {
         getProducts: getProducts,
         orders: orders,
         setOrders: setOrders,
-        getOrders: getOrders
+        getOrders: getOrders,
+        isTokenExpired: isTokenExpired,
+        addProductToOrder: addProductToOrder
     }
 
     return (

@@ -6,22 +6,31 @@ import Login from './login/Login'
 import Register from './register/Register'
 import { useContext } from 'react'
 import Context from './contexts/GlobalContext'
-import { CookieProvider } from './contexts/CookieContext'
+import {useCookieContext } from './contexts/CookieContext'
 
 function App() {
-  const { cookies } = useContext(Context)
+  const { cookies } = useCookieContext()
+  const { isTokenExpired } = useContext(Context)
+  const isAuthenticated = cookies.accessToken && !isTokenExpired(cookies.accessToken) ? true : false;
   return (
     <>
-      <CookieProvider>
         <Routes>
-          <Route path="/" element={<Navigate to="/register" replace />}></Route>
-          <Route path="/main" element={<Main />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Navigate to="/login" replace />}></Route>
           <Route path="/register" element={<Register />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/main"
+            element={isAuthenticated ? <Main /> : <Navigate to="/login" replace />}
+          />
+          <Route
+            path="/product/:id"
+            element={isAuthenticated ? <Product /> : <Navigate to="/login" replace />}
+          />
+          <Route
+            path="/cart"
+            element={isAuthenticated ? <Cart /> : <Navigate to="/login" replace />}
+          />
         </Routes>
-      </CookieProvider>
     </>
   )
 }

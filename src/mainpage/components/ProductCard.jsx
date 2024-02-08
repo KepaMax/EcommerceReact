@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Context from '../../contexts/GlobalContext';
 
 function ProductCard({ id, data }) {
-    const { setOrders } = useContext(Context)
+    const { addProductToOrder } = useContext(Context)
     const navigate = useNavigate()
     return (
         <div onDoubleClick={() => navigate(`/product/${id}`)} className="flex w-full transition-shadow ease-in-out sm:max-w-[385px] group hover:shadow-2xl hover:shadow-slate-900 flex-col p-[16px]">
@@ -14,7 +14,7 @@ function ProductCard({ id, data }) {
                     src={data.gallery[0]}
                     alt="hehe"
                 />
-                <button onClick={()=>setOrders((prev)=>[...prev,data])} className="hidden group-hover:flex justify-center items-center border border-[#5ECE7B] bg-[#5ECE7B] rounded-full w-[50px] h-[50px] absolute right-5 -bottom-[25px]">
+                <button onClick={() => addProductToOrder(data)} className="hidden group-hover:flex justify-center items-center border border-[#5ECE7B] bg-[#5ECE7B] rounded-full w-[50px] h-[50px] absolute right-5 -bottom-[25px]">
                     <img
                         className="w-[24px] h-[24px] mr-1"
                         src={CartIcon}
