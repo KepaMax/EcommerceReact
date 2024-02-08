@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Context from "../../contexts/GlobalContext";
 
 function Navbar() {
-  const { categories, getCategories, setCurrentCategory,filterProducts } = useContext(Context)
+  const { categories, getCategories, setCurrentCategory, filterProducts } = useContext(Context)
   const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
 
@@ -64,15 +64,13 @@ function Navbar() {
         </div>
         <div className={`${openNav ? "" : "hidden"}`}>
           <ul className="flex flex-col items-center mb-[25px] gap-8">
-            <li className="flex px-5  flex-col text-center w-full">
-              <button className="py-3 border-b-2 border-transparent hover:text-green-400 hover:border-green-400">WOMEN</button>
-            </li>
-            <li className="flex px-5 flex-col text-center w-full">
-              <button className="py-3 border-b-2 border-transparent hover:text-green-400 hover:border-green-400">MEN</button>
-            </li>
-            <li className="flex px-5 flex-col text-center w-full">
-              <button className="py-3 border-b-2 border-transparent hover:text-green-400 hover:border-green-400">KIDS</button>
-            </li>
+            {categories.map((c) =>
+            (<li className="flex flex-col  text-center w-[70px] h-[56px]">
+              <button onClick={() => {
+                setCurrentCategory(c)
+                filterProducts(c)
+              }} className="py-3 border-b-2 border-transparent hover:text-green-400 hover:border-green-400">{c}</button>
+            </li>))}
           </ul>
           <ul className="flex items-center justify-center gap-16">
             <li className="flex">
