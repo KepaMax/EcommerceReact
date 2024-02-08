@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Context from "../../contexts/GlobalContext";
 
 function Navbar() {
-  const { categories, getCategories, setCurrentCategory } = useContext(Context)
+  const { categories, getCategories, setCurrentCategory,filterProducts } = useContext(Context)
   const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
 
@@ -15,11 +15,14 @@ function Navbar() {
 
   return (
     <nav className="px-4">
-      <div className="hidden md:flex justify-between">
+      <div className="hidden lg:flex justify-between">
         <ul className="flex w-[50%] gap-8">
           {categories.map((c) =>
           (<li className="flex flex-col  text-center w-[70px] h-[56px]">
-            <button onClick={() => setCurrentCategory(c)} className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">{c}</button>
+            <button onClick={() => {
+              setCurrentCategory(c)
+              filterProducts(c)
+            }} className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">{c}</button>
           </li>))}
         </ul>
         <button onClick={() => navigate("/main")} className="py-2">
@@ -43,7 +46,7 @@ function Navbar() {
           </li>
         </ul>
       </div>
-      <div className="flex flex-col md:hidden">
+      <div className="flex flex-col lg:hidden">
         <div className="flex h-[75px] items-center justify-between">
           <div className="ml-5">
             <button

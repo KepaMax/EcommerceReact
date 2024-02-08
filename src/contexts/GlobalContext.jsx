@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Context = createContext();
@@ -7,7 +7,21 @@ export default Context;
 export const GlobalContext = ({ children }) => {
     const [categories, setCategories] = useState([])
     const [currentCategory, setCurrentCategory] = useState("All")
+    const [products, setProducts] = useState([])
+    const [filteredProducts, setFilteredProducts] = useState([])
     const navigate = useNavigate();
+
+    async function getProducts() {
+        const response = await fetch("http://localhost:5000/api/products");
+        if (response.ok) {
+            const data = await response.json()
+            setProducts(data.product)
+        }
+        else {
+            console.log(response.status)
+            console.log(response.json())
+        }
+    }
 
     async function getCategories() {
         const response = await fetch("http://localhost:5000/api/products");
@@ -23,12 +37,30 @@ export const GlobalContext = ({ children }) => {
         }
     }
 
+    async function filterProducts(category) {
+        if (category === "All")
+            setFilteredProducts([...products])
+        else {
+            var filtered = products.filter((p) => p.category === category);
+            console.log([...filtered])
+            setFilteredProducts(filtered);
+        }
+    }
+
+    useEffect(()=>{
+        getProducts()
+    },[])
+
     const contextData = {
         getCategories: getCategories,
         categories: categories,
         navigate: navigate,
         currentCategory: currentCategory,
-        setCurrentCategory: setCurrentCategory
+        setCurrentCategory: setCurrentCategory,
+        filterProducts: filterProducts,
+        filteredProducts: filteredProducts,
+        products: products,
+        getProducts: getProducts
     }
 
     return (
