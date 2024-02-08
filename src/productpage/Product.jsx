@@ -62,8 +62,7 @@ function Product() {
                         <p className="text-[18px] font-bold">COLOR:</p>
                         <div className="flex gap-3">
                             {product.colors && product.colors.map((color) =>
-                            (<button className={`w-[32px] h-[32px] border-2 hover:border-[#5ECE7B] bg-${color.toLowerCase() !== "white" && color.toLowerCase() !== "black" ? `${color.toLowerCase()}-400` :
-                            color.toLowerCase()}`}></button>))}
+                            (<button className="w-[32px] h-[32px] border-2 hover:border-[#5ECE7B]" style={{ backgroundColor: color }}></button>))}
                         </div>
                     </div>
                     <div className="mt-10">
