@@ -1,73 +1,75 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../common/components/Navbar'
+import { useParams } from 'react-router-dom'
 
 function Product() {
+    const { id } = useParams();
+    const [product, setProduct] = useState({});
+    const [activeIMG, setActiveIMG] = useState('');
+
+    const getProductById = async () => {
+        const response = await fetch(`http://localhost:5000/api/products/${id}`);
+        if (response.ok) {
+            const data = await response.json();
+            const { product } = data;
+            setProduct(product);
+            setActiveIMG(product.gallery.length ? product.gallery[0] : '')
+        }
+        else {
+            console.log(response.status)
+            console.log(response.json())
+        }
+    }
+
+    useEffect(() => {
+        getProductById()
+    }, [])
+
     return (
         <div className='md:px-20 lg:px-28'>
             <Navbar></Navbar>
             <div className="flex flex-col justify-start gap-14 lg:flex-row mt-[80px] ">
                 <div className="flex lg:flex-col mx-14 lg:mx-0 order-2 lg:order-1 gap-[30px]">
-                    <div className="border border-transparent hover:border-zinc-300 hover:shadow-xl hover:shadow-slate-600 w-[90px] h-[90px]">
+                    {product.gallery && product.gallery.map((src) =>
+                    (<div onClick={() => setActiveIMG(src)} className="border border-transparent hover:border-zinc-300 hover:shadow-xl hover:shadow-slate-600 w-[90px] h-[90px]">
                         <img
                             className="object-cover w-full h-full"
-                            src="https://s3-alpha-sig.figma.com/img/b950/a3bd/b5e3087a92bcdb9503e38bbf905ae3a0?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Oz6AjP32OM8P8HgOJAEkne0pdFznU5IQgXH8pbGmbARebIusUJXA98l9R9jxVkCr4MqBnYU4YuIItq4lO8FAD70Dgs9jI6F-OUFFOaYYmRzUNKM0~ECvUPaL1otyBrNj0ew4AAYZa6koBusTOJvTse8XGQW1w-KpyFqqJtCTXth8fwoGkCS0iYDQ-FtLAi0QEog6GahalkFcY2z5XBfbhASeeUcBw2YSgBk0LSUDaOj5V1yDp7CB2iByOKF~pRbpn2wRUOjz2J6Y10siYOukwZQxlnVqk28ofsD0qPyCtx-NP2sXZ3tuibcVG2dmTW3mcjP5yODGgRPQO14rbRGYag__"
+                            src={src}
                             alt="hehe"
                         />
-                    </div>
-                    <div className="border border-transparent hover:border-zinc-300 hover:shadow-xl hover:shadow-slate-600 w-[90px] h-[90px]">
-                        <img
-                            className="object-cover w-full h-full"
-                            src="https://s3-alpha-sig.figma.com/img/b950/a3bd/b5e3087a92bcdb9503e38bbf905ae3a0?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Oz6AjP32OM8P8HgOJAEkne0pdFznU5IQgXH8pbGmbARebIusUJXA98l9R9jxVkCr4MqBnYU4YuIItq4lO8FAD70Dgs9jI6F-OUFFOaYYmRzUNKM0~ECvUPaL1otyBrNj0ew4AAYZa6koBusTOJvTse8XGQW1w-KpyFqqJtCTXth8fwoGkCS0iYDQ-FtLAi0QEog6GahalkFcY2z5XBfbhASeeUcBw2YSgBk0LSUDaOj5V1yDp7CB2iByOKF~pRbpn2wRUOjz2J6Y10siYOukwZQxlnVqk28ofsD0qPyCtx-NP2sXZ3tuibcVG2dmTW3mcjP5yODGgRPQO14rbRGYag__"
-                            alt="hehe"
-                        />
-                    </div>
-                    <div className="border border-transparent hover:border-zinc-300 hover:shadow-xl hover:shadow-slate-600 w-[90px] h-[90px]">
-                        <img
-                            className="object-cover w-full h-full"
-                            src="https://s3-alpha-sig.figma.com/img/b950/a3bd/b5e3087a92bcdb9503e38bbf905ae3a0?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Oz6AjP32OM8P8HgOJAEkne0pdFznU5IQgXH8pbGmbARebIusUJXA98l9R9jxVkCr4MqBnYU4YuIItq4lO8FAD70Dgs9jI6F-OUFFOaYYmRzUNKM0~ECvUPaL1otyBrNj0ew4AAYZa6koBusTOJvTse8XGQW1w-KpyFqqJtCTXth8fwoGkCS0iYDQ-FtLAi0QEog6GahalkFcY2z5XBfbhASeeUcBw2YSgBk0LSUDaOj5V1yDp7CB2iByOKF~pRbpn2wRUOjz2J6Y10siYOukwZQxlnVqk28ofsD0qPyCtx-NP2sXZ3tuibcVG2dmTW3mcjP5yODGgRPQO14rbRGYag__"
-                            alt="hehe"
-                        />
-                    </div>
+                    </div>))}
                 </div>
                 <div className="flex justify-start px-4 order-1 lg:order-2 w-full max-w-[800px] h-[600px]">
                     <img
                         className="object-fill lg:object-cover w-full h-full"
-                        src="https://s3-alpha-sig.figma.com/img/b950/a3bd/b5e3087a92bcdb9503e38bbf905ae3a0?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Oz6AjP32OM8P8HgOJAEkne0pdFznU5IQgXH8pbGmbARebIusUJXA98l9R9jxVkCr4MqBnYU4YuIItq4lO8FAD70Dgs9jI6F-OUFFOaYYmRzUNKM0~ECvUPaL1otyBrNj0ew4AAYZa6koBusTOJvTse8XGQW1w-KpyFqqJtCTXth8fwoGkCS0iYDQ-FtLAi0QEog6GahalkFcY2z5XBfbhASeeUcBw2YSgBk0LSUDaOj5V1yDp7CB2iByOKF~pRbpn2wRUOjz2J6Y10siYOukwZQxlnVqk28ofsD0qPyCtx-NP2sXZ3tuibcVG2dmTW3mcjP5yODGgRPQO14rbRGYag__"
-                        alt="hehe"
+                        src={activeIMG}
+                        alt="product IMG"
                     />
                 </div>
                 <div className="flex flex-col mx-14 lg:mx-0 order-3">
-                    <h1 className="text-3xl font-semibold">Apollo</h1>
-                    <h2 className="text-3xl font-light">Running Short</h2>
+                    <h1 className="text-3xl font-semibold">{product.brand}</h1>
+                    <h2 className="text-3xl font-light">{product.title}</h2>
                     <div className="mt-10">
                         <p className="text-[18px] font-bold">SIZE:</p>
                         <div className="flex gap-3">
-                            <button className="border-[1.9px] border-zinc-900 py-2 w-[65px] hover:text-white hover:bg-black">
-                                XS
-                            </button>
-                            <button className="border-[1.9px] border-zinc-900 py-2 w-[65px] hover:text-white hover:bg-black">
-                                S
-                            </button>
-                            <button className="border-[1.9px] border-zinc-900 py-2 w-[65px] hover:text-white hover:bg-black">
-                                M
-                            </button>
-                            <button className="border-[1.9px] border-zinc-900 py-2 w-[65px] hover:text-white hover:bg-black">
-                                L
-                            </button>
+                            {product.size && product.size.map((size) =>
+                            (<button className="border-[1.9px] border-zinc-900 py-2 w-[65px] hover:text-white hover:bg-black">
+                                {size}
+                            </button>))}
                         </div>
                     </div>
                     <div className="mt-5">
                         <p className="text-[18px] font-bold">COLOR:</p>
                         <div className="flex gap-3">
-                            <button className="w-[32px] h-[32px] border-2 hover:border-[#5ECE7B] bg-[#D3D2D5]"></button>
-                            <button className="w-[32px] h-[32px] border-2 hover:border-[#5ECE7B] bg-[#2B2B2B]"></button>
-                            <button className="w-[32px] h-[32px] border-2 hover:border-[#5ECE7B] bg-[#0F6450]"></button>
+                            {product.colors && product.colors.map((color) =>
+                            (<button className={`w-[32px] h-[32px] border-2 hover:border-[#5ECE7B] bg-${color.toLowerCase() !== "white" && color.toLowerCase() !== "black" ? `${color.toLowerCase()}-400` :
+                            color.toLowerCase()}`}></button>))}
                         </div>
                     </div>
                     <div className="mt-10">
                         <p className="text-[18px] font-bold">PRICE:</p>
                         <p className="text-[18px] font-bold mt-3">
-                            <span>$</span>50.00
+                            <span>$</span>{product.price}
                         </p>
                     </div>
                     <div className="mt-10">
@@ -77,9 +79,7 @@ function Product() {
                     </div>
                     <div className="mt-10">
                         <p className="w-full max-w-[300px] font-medium">
-                            Find stunning women's cocktail dresses and party dresses. Stand out
-                            in lace and metallic cocktail dresses and party dresses from all
-                            your favorite brands.
+                            {product.description}
                         </p>
                     </div>
                 </div>
@@ -89,3 +89,40 @@ function Product() {
 }
 
 export default Product
+
+// brand
+// :
+// "Apple"
+// category
+// :
+// "Tech"
+// colors
+// :
+// (4) ['Natural', 'Blue', 'White', 'Black']
+// createdAt
+// :
+// "2024-02-07T10:59:51.097Z"
+// description
+// :
+// "Best phone we have ever made"
+// gallery
+// :
+// (2) ['https://store.storeimages.cdn-apple.com/4982/as-im…d=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1693009283359', 'https://store.storeimages.cdn-apple.com/4982/as-im…US?wid=728&hei=666&fmt=png-alpha&.v=1693346851451']
+// id
+// :
+// "65c362a7532d246ff111a4ae"
+// inventory
+// :
+// 15
+// price
+// :
+// 1199
+// size
+// :
+// (2) ['256GB', '512GB']
+// title
+// :
+// "iPhone 15 Pro Max"
+// updatedAt
+// :
+// "2024-02-07T10:59:51.097Z"

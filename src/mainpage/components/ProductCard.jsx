@@ -1,13 +1,15 @@
 import React from 'react'
 import CartIcon from "../../assets/Cart_white.svg";
+import { useNavigate } from 'react-router-dom';
 
-function ProductCard() {
+function ProductCard({id,data}) {
+    const navigate = useNavigate()
     return (
-        <div className="flex w-full transition-shadow ease-in-out sm:max-w-[385px] group hover:shadow-2xl hover:shadow-slate-900 flex-col p-[16px]">
+        <div onDoubleClick={()=>navigate(`/product/${id}`)} className="flex w-full transition-shadow ease-in-out sm:max-w-[385px] group hover:shadow-2xl hover:shadow-slate-900 flex-col p-[16px]">
             <div className="w-full relative sm:max-w-[356px] h-[340px]">
                 <img
                     className="object-cover w-full sm:max-w-[356px] h-[340px]"
-                    src="https://s3-alpha-sig.figma.com/img/b950/a3bd/b5e3087a92bcdb9503e38bbf905ae3a0?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Oz6AjP32OM8P8HgOJAEkne0pdFznU5IQgXH8pbGmbARebIusUJXA98l9R9jxVkCr4MqBnYU4YuIItq4lO8FAD70Dgs9jI6F-OUFFOaYYmRzUNKM0~ECvUPaL1otyBrNj0ew4AAYZa6koBusTOJvTse8XGQW1w-KpyFqqJtCTXth8fwoGkCS0iYDQ-FtLAi0QEog6GahalkFcY2z5XBfbhASeeUcBw2YSgBk0LSUDaOj5V1yDp7CB2iByOKF~pRbpn2wRUOjz2J6Y10siYOukwZQxlnVqk28ofsD0qPyCtx-NP2sXZ3tuibcVG2dmTW3mcjP5yODGgRPQO14rbRGYag__"
+                    src={data.gallery[0]}
                     alt="hehe"
                 />
                 <button className="hidden group-hover:flex justify-center items-center border border-[#5ECE7B] bg-[#5ECE7B] rounded-full w-[50px] h-[50px] absolute right-5 -bottom-[25px]">
@@ -18,9 +20,9 @@ function ProductCard() {
                     />
                 </button>
             </div>
-            <p className="font-light mt-[24px] mr-1">Apollo Running Short</p>
+            <p className="font-light mt-[24px] mr-1">{data.title}</p>
             <p className="font-semibold">
-                <span>$</span>50.00
+                <span>$</span>{data.price}
             </p>
         </div>
     )
