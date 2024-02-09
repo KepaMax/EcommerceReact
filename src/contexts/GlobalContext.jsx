@@ -71,13 +71,20 @@ export const GlobalContext = ({ children }) => {
     }, []);
 
     const addProductToOrder = useCallback((p) => {
+        const order = {
+            ...p,
+            quantity: 1
+        }
+        console.log(order)
+        
         setOrders(prevOrders => {
             const productExists = prevOrders.find(product => product.id === p.id);
             if (!productExists) {
-                return [...prevOrders, p];
+                return [...prevOrders, order];
             }
             return prevOrders;
         });
+        console.log(orders)
     }, []);
 
     function filterProducts(category) {
@@ -100,6 +107,7 @@ export const GlobalContext = ({ children }) => {
         setCurrentCategory,
         filterProducts,
         getProducts: getCategoriesAndProducts,
+        setOrders,
         getOrders,
         isTokenExpired,
         addProductToOrder
