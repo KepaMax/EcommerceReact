@@ -20,6 +20,7 @@ function Navbar() {
             <button onClick={() => {
               setCurrentCategory(c)
               filterProducts(c)
+              navigate("/main")
             }} className="py-6 border-b-2 mt-3 border-transparent hover:text-green-400 hover:border-green-400">{c}</button>
           </li>))}
         </ul>
