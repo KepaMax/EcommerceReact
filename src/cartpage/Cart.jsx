@@ -5,40 +5,23 @@ import Context from '../contexts/GlobalContext';
 import { useCookieContext } from '../contexts/CookieContext';
 
 function Cart() {
-  const { cookies } = useCookieContext();
   const { orders } = useContext(Context);
   const [sum, setSum] = useState(0)
-
-  async function sendOrders() {
-    try {
-      const response = await fetch("http://localhost:5000/api/orders", {
-        method: "PUT",
-        body: JSON.stringify({ orderItems: orders }),
-        headers:
-        {
-          "Content-type": "application/json",
-          "Authorization": `Bearer ${cookies.accessToken}`
-        }
-      })
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-      }
-      else {
-        console.log(response.status)
-        console.log(response.json())
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const [groupedOrders, setGroupedOrders] = useState([])
 
   useEffect(() => {
     setSum(0);
-    orders.forEach(order => {
-      const orderPrice = order.price * order.quantity;
-      setSum(prev => prev + orderPrice);
-    });
+    const groupedElements = orders.reduce((acc, curr) => {
+      if (!acc[curr.id]) {
+        acc[curr.id] = { id: curr.id, count: 0, totalPrice: 0 };
+      }
+      acc[curr.id].count++;
+      acc[curr.id].totalPrice += curr.price;
+      return acc;
+    }, {});
+
+    setGroupedOrders(Object.values(groupedElements));
+    console.log(groupedOrders)
   }, [orders]);
 
   return (
@@ -48,14 +31,14 @@ function Cart() {
         <h1 className="text-5xl font-semibold mt-[80px] mb-[40px]">CART</h1>
         <div className="border border-zinc-200 w-full mt-[75px]"></div>
         <div>
-          {orders.length ? orders.map((product) => (<ProductInfo setSum={setSum} key={product.id} data={product} />)) : null}
+          {groupedOrders.length ? groupedOrders.map((productInfo) => (<ProductInfo id={productInfo.id} count={productInfo.count} key={productInfo.id} />)) : null}
         </div>
         <div className="flex flex-col text-2xl font-light">
           <label>Tax 18%: <span className="ml-2 font-bold"><span>$</span>{((sum / 100) * 18).toFixed(2)}</span></label>
           <label>Orders Count: <span className="ml-2 font-bold">{orders.length}</span></label>
           <label>Total: <span className="ml-2 font-bold"><span>$</span>{sum}</span></label>
         </div>
-        <button onClick={() => sendOrders()} className="bg-[#5ECE7B] active:bg-[#9ce9b1] my-9 text-white w-full max-w-[300px] py-4 font-medium">
+        <button className="bg-[#5ECE7B] active:bg-[#9ce9b1] my-9 text-white w-full max-w-[300px] py-4 font-medium">
           ORDER
         </button>
       </div>
