@@ -19,7 +19,16 @@ function ProductInfo({ count, id }) {
     }
 
     function decrement() {
-        setOrders(orders.filter(o => { o.id != product.id }))
+        const indexToRemove = orders.findIndex((p) => p.id === product.id);
+
+        if (indexToRemove !== -1) {
+            const updatedOrders = [
+                ...orders.slice(0, indexToRemove),
+                ...orders.slice(indexToRemove + 1)
+            ];
+            setOrders(updatedOrders)
+            setQuantity(prev => prev - 1)
+        }
     }
 
     useEffect(() => {

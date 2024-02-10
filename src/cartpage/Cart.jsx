@@ -10,19 +10,20 @@ function Cart() {
   const [groupedOrders, setGroupedOrders] = useState([])
 
   useEffect(() => {
-    setSum(0);
     const groupedElements = orders.reduce((acc, curr) => {
-      if (!acc[curr.id]) {
-        acc[curr.id] = { id: curr.id, count: 0, totalPrice: 0 };
-      }
-      acc[curr.id].count++;
-      acc[curr.id].totalPrice += curr.price;
-      return acc;
+        acc[curr.id] = acc[curr.id] || { id: curr.id, count: 0, totalPrice: 0 };
+        acc[curr.id].count++;
+        acc[curr.id].totalPrice += curr.price;
+        return acc;
     }, {});
 
-    setGroupedOrders(Object.values(groupedElements));
-    console.log(groupedOrders)
-  }, [orders]);
+    const groupedOrdersArray = Object.values(groupedElements);
+
+    const sum = groupedOrdersArray.reduce((total, order) => total + order.totalPrice, 0);
+
+    setGroupedOrders(groupedOrdersArray);
+    setSum(sum);
+}, [orders]);
 
   return (
     <div className="md:px-20 lg:px-28">

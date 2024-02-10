@@ -123,14 +123,6 @@ export const GlobalContext = ({ children }) => {
     }, []);
 
     function addProductToOrder(p) {
-        // setOrders(prevOrders => {
-        //     const productExists = prevOrders.find(product => product.id === p.id);
-        //     if (!productExists) {
-        //         return [...prevOrders, p];
-        //     }
-        //     return prevOrders;
-        // });
-        // console.log(orders)
         setOrders(prev => [...prev, p])
     };
 
