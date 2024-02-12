@@ -32,7 +32,7 @@ function Cart() {
         <h1 className="text-5xl font-semibold mt-[80px] mb-[40px]">CART</h1>
         <div className="border border-zinc-200 w-full mt-[75px]"></div>
         <div>
-          {groupedOrders.length ? groupedOrders.map((productInfo) => (<ProductInfo id={productInfo.id} count={productInfo.count} key={productInfo.id} />)) : null}
+          {groupedOrders.length ? groupedOrders.map((productInfo) => (<ProductInfo id={productInfo.id} count={productInfo.count} key={productInfo.id} />)) : <h2 className="my-3 text-xl">No Products Added</h2>}
         </div>
         <div className="flex flex-col text-2xl font-light">
           <label>Tax 18%: <span className="ml-2 font-bold"><span>$</span>{((sum / 100) * 18).toFixed(2)}</span></label>
