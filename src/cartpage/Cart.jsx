@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../common/components/Navbar'
 import ProductInfo from './components/ProductInfo'
 import Context from '../contexts/GlobalContext';
-import { useCookieContext } from '../contexts/CookieContext';
 
 function Cart() {
     const { orders } = useContext(Context);
