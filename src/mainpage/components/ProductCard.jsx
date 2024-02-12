@@ -10,7 +10,7 @@ function ProductCard({ id, data }) {
         <div onClick={() => navigate(`/product/${id}`)} className="flex w-full transition-shadow ease-in-out sm:max-w-[385px] group hover:shadow-2xl hover:shadow-slate-900 flex-col p-[16px]">
             <div className="w-full relative sm:max-w-[356px] h-[340px]">
                 <img
-                    className="object-cover w-full sm:max-w-[356px] h-[340px]"
+                    className="object-fit w-full sm:max-w-[356px] h-[340px]"
                     src={data.gallery[0]}
                     alt="hehe"
                 />
